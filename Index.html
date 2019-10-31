@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<HTML>
+    <head>
+<title>Music Player</title>
+<link rel="stylesheet" href="style.css">
+
+<script src="js/jquery-3.3.1.min"></script> // load jquery
+<script src="http://connect.soundcloud.com/sdk.js"></script> // connect to soundlcoud
+<script src="js/audiojs/audio.min.js"></script> // load audio,js script for audio Player
+<script rel="text/javascript" src="script.js"></script>
+<link rel="shortcut icon" href="image/icon.gif" type="image/x-icon">
+    </head>
+<body>
+    
+    <div id="dropLayer" ondrop="drop(File)"></div>
+<canvas id="thisCanvas">
+    </canvas>
+    
+    <canvas id="renderer"></canvas>
+    
+    <div id="main">
+        <div id="image">
+            <img id="imager" src="image/poster1.jpg" />
+            <div id="VolumeBar">
+                    <img id="volImg" onclick="Muter()" src="image/vol.png"/>
+                <input type="range" max="100" min="0" value="100" id="volumeChanger" onchange="volume(value)"> 
+                
+            </div>
+        </div>
+        
+
+    <div id="player">
+        <div id="songTitle"></div>
+        <audio id="audioPlayer" onloadstart="loadCanvas()" onended="next()" ontimeupdate="seekBar()" >You have the most shittiest browser!</audio>
+        <div id="buttons">
+            <button onclick="pre()"  id="pre"><img src="image/pre.png" /></button>
+            <button onclick="visualizer()" id="play"><img id="imgBtn" src="image/play.png" /></button>
+            <button onclick="next()" id="next"><img src="image/next.png" /></button>
+        </div>
+        <div id="timeBar">
+        <div id="timer">0:00</div>
+        <input type="range" max="300" min="0" value="0" id="seek-bar" onmousedown="disable()" onmouseup="enable()" onchange="seek(value)">
+        </div>
+        <div id="time_Left">0:00</div>
+    </div>
+        
+    </div>
+
+    
+</body>
+</HTML>
