@@ -1,4 +1,4 @@
-var songs = ["api.soundcloud.com/tracks/99231270/stream?client_id=201b55a1a16e7c0a122d112590b32e4a", "Unlike Pluto - Revenge, And A Little More.mp3", "Vindu - Japanese Spring _Stories From Japan EP_ (japanese lo-fi).mp3", "Dirty Palm & Conor Ross - Flowers.mp3", "Haywyre - Never Count On Me.mp3"];
+var songs = ["", "Unlike Pluto - Revenge, And A Little More.mp3", "Vindu - Japanese Spring _Stories From Japan EP_ (japanese lo-fi).mp3", "Dirty Palm & Conor Ross - Flowers.mp3", "Haywyre - Never Count On Me.mp3"];
 var songNo = 0;
 var posters = ["image/poster0.jpg", "image/poster1.jpg", "image/poster2.jpg", "image/poster3.jpg", "image/poster4.jpg"];
 var posterNo = 0;
@@ -40,33 +40,40 @@ function loadCanvas() {
     canvas.height = window.innerHeight;
     var ctx = canvas.getContext("2d");
     
-    var grd = ctx.createRadialGradient(((canvas.width / 2) * Math.random()), ((canvas.height / 2) * Math.random()), 100, ((canvas.width) * Math.random()), ((canvas.height) * Math.random()), canvas.width);
-    
+    //var grd = ctx.createRadialGradient(((canvas.width / 2) * Math.random()), ((canvas.height / 2) * Math.random()), 100, ((canvas.width) * Math.random()), ((canvas.height) * Math.random()), canvas.width);
+    var grd = ctx.createLinearGradient(0,0,0,1024);
     grd.addColorStop(0, random1());
-    
     grd.addColorStop(Math.random(), random1());
     grd.addColorStop(1, random1());
     ctx.rect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = grd;
     ctx.fill();
-
+    
+    var grd1 = ctx.createRadialGradient(((canvas.width / 2) * Math.random()), ((canvas.height / 2) * Math.random()+40), 100, ((canvas.width) * Math.random()), ((canvas.height) * Math.random()+20), canvas.width);
+    grd1.addColorStop(0, random1());
+    grd1.addColorStop(Math.random()*.7, random1());
+    grd1.addColorStop(1, random1());
+    ctx.rect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = grd1;
+    ctx.globalAlpha = 0.5;
+    ctx.fill();
     //randomize the colors
     function random1() {
-        switch (Math.round(Math.random() * (10 - 1) + 1)) {
+        switch (Math.round(Math.random() * (21 - 1) + 1)) {
         case 0:
             value = "#240b36";
             break;
         case 1:
-            value = "#c31432";
+            value = "#051937";
             break;
         case 2:
             value = "#642B73";
             break;
         case 3:
-            value = "#333333";
+            value = "#FFF5FF";
             break;
         case 4:
-            value = "#C06C84";
+            value = "#fffbd5";
             break;
         case 5:
             value = "#6C5B7B";
@@ -75,22 +82,57 @@ function loadCanvas() {
             value = "#355C7D";
             break;
         case 7:
-            value = "#3F5EFB";
+            value = "#fffbd5";
             break;
         case 8:
             value = "#FC466B";
             break;
         case 9:
-            value = "#fffbd5";
+            value = "#fff";
             break;
         case 10:
             value = "#b20a2c";
             break;
+        case 11:
+            value = "#43655A";
+            break;
+        case 12:
+            value = "#C06C84";
+            break;
+        case 13:
+            value = "#005A34";
+            break;
+        case 14:
+            value = "#c31432";
+            break;
+        case 15:
+            value = "#000000";
+            break;
+        case 16:
+            value = "#C6C6C6";
+            break;
+        case 17:
+            value = "#3F5EFB";
+            break;
+        case 18:
+            value = "#fffbd5";
+            break;
+        case 19:
+            value = "#333333";
+            break;
+        case 20:
+            value = "#fff";
+            break;
+        case 21:
+            value = "#F2ECFF";
+            break;
         }
         return value;
+    }
+        
     
     }
-}
+
 /*function play(){
     if(playlistNoMax > 0){
     playlistNo++;
@@ -345,14 +387,16 @@ var width = 5;
 
     
 function AnimationFramer() {
-        var ctx1 = renderer.getContext("2d");
-    player.play();
+    var ctx1 = renderer.getContext("2d");
+    
+    connect();
+
     title.textContent = songs[songNo];
     document.getElementById("imgBtn").src = "image/pause.png";
     var actx = new AudioContext();
     var audioSrc = actx.createMediaElementSource(player);
     analyser = actx.createAnalyser();
-        audioSrc.connect(analyser);
+    audioSrc.connect(analyser);
 
         
     analyser.fftSize  = 512;
