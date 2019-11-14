@@ -1,4 +1,4 @@
-var songs = ["Far Out - New Beginning.mp3", "Unlike Pluto - Revenge, And A Little More.mp3", "Vindu - Japanese Spring _Stories From Japan EP_ (japanese lo-fi).mp3", "Dirty Palm & Conor Ross - Flowers.mp3", "Haywyre - Never Count On Me.mp3"];
+var songs = ["Far Out - New Beginning.mp3", "Animadrop - Aethra.mp3", "Vindu - Japanese Spring _Stories From Japan EP_ (japanese lo-fi).mp3", "Feint - Vagrant (feat. Veela).mp3", "Arkana - Ein Sof.mp3"];
 var songNo = 0;
 var posters = ["image/poster0.jpg", "image/poster1.jpg", "image/poster2.jpg", "image/poster3.jpg", "image/poster4.jpg"];
 var posterNo = 0;
@@ -40,7 +40,7 @@ function loadCanvas() {
     var ctx = canvas.getContext("2d");
     
     //var grd = ctx.createRadialGradient(((canvas.width / 2) * Math.random()), ((canvas.height / 2) * Math.random()), 100, ((canvas.width) * Math.random()), ((canvas.height) * Math.random()), canvas.width);
-    var grd = ctx.createLinearGradient(0,0,0,1024);
+    var grd = ctx.createLinearGradient(0,0,window.innerHeight,window.innerWidth);
     grd.addColorStop(0, random1());
     grd.addColorStop(Math.random(), random1());
     grd.addColorStop(1, random1());
@@ -54,7 +54,7 @@ function loadCanvas() {
     grd1.addColorStop(1, random1());
     ctx.rect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = grd1;
-    ctx.globalAlpha = 0.5;
+    ctx.globalAlpha = 0.3;
     ctx.fill();
     //randomize the colors
     function random1() {
@@ -394,13 +394,13 @@ function AnimationFramer() {
 
         
     analyser.fftSize  = 256;
-    analyser.maxDecibels = 0;
-    analyser.minDecibals = -120; 
+    analyser.maxDecibels = 100;
+    analyser.minDecibals = 0; 
     analyser.smoothingTimeConstant  = 0.8;
-    var frequencyArray = (analyser.frequencyBinCount);
-    frequencyData = new Uint8Array(frequencyArray);
-    //const bufferLength = analyser.frequencyBinCount;
-//frequencyData = new Float32Array(bufferLength);
+    //var frequencyArray = (analyser.frequencyBinCount);
+    //frequencyData = new Uint8Array(frequencyArray);
+    const bufferLength = analyser.frequencyBinCount;
+  frequencyData = new Float32Array(bufferLength);
 
 //Set up audio node network
 
@@ -408,25 +408,40 @@ function AnimationFramer() {
     renderFrame();
     
 }
+var g = 0;
 function renderFrame(){
     try{
    ctx1.clearRect(0, 0, window.innerWidth, window.innerHeight);
-   //analyser.getFloatFrequencyData(frequencyData);
-   analyser.getByteFrequencyData(frequencyData);
+   analyser.getFloatFrequencyData(frequencyData);
+   //analyser.getByteFrequencyData(frequencyData);
    var y =  window.innerHeight;
 
         for(var i = 1; i< bars;i++){
         var x = absoluteWidth * i;
-        var yy = window.innerHeight - ((frequencyData[i] ) + 5);
-        var y1 = window.innerHeight - (frequencyData[i] * 1.2); 
-        var y2 = window.innerHeight - (frequencyData[i] * 1.5);
-        var y3 = window.innerHeight - (frequencyData[i] * 2);
+        var yy = (frequencyData[i] + 180) * 2;
+
+        var y0 = window.innerHeight - (yy + 5);
+        var y1 = window.innerHeight - (yy * 1.2); 
+        var y2 = window.innerHeight - (yy * 1.5);
+        var y3 = window.innerHeight - (yy * 2);
 
         //linecolor = "rgb(" + 205 + ", " + 255 + ", " + 255 + ")";
         var grd1 = ctx1.createLinearGradient(0, 0, 0, window.innerHeight);
         //(x,y, x1, y1)
-        grd1.addColorStop(0.8, '#fff');
-        grd1.addColorStop(0.9 , 'rgb('+(100+frequencyData[i]*2)+',39,17)');
+        function colorValue(){
+            value = Math.round((frequencyData[i] +250) * 2);
+            if (value <= 10){
+                value = 20;
+            }
+            else if (value> 256){
+                value = 256;
+            }
+            return value;
+        }
+
+        grd1.addColorStop(0.5 , '#fff');
+        grd1.addColorStop(0.7 , 'rgb(200,200,200)');
+        grd1.addColorStop(0.9 , 'rgb('+colorValue()+',39,17)');
         grd1.addColorStop(1 , 'rgb(100,39,17)');
 
 
