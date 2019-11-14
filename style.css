@@ -55,7 +55,7 @@ body {
 }
 #player{
     padding: 25px;
-    color: #333;
+    color: rgb(238, 238, 238);
 }
 #image img{
     height: 175px;
