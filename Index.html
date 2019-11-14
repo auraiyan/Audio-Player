@@ -4,10 +4,6 @@
 <title>Music Player</title>
 <link rel="stylesheet" href="style.css">
 
-<script src="js/jquery-3.3.1.min.js"></script> 
-<script src="https://connect.soundcloud.com/sdk/sdk-3.3.2.js"></script> 
-<script src="js/soundcloudAPI/soundcloud.player.api.js"></script>
-<script src="js/init.js"></script>
 
 
 <link rel="shortcut icon" href="image/icon.gif" type="image/x-icon">
@@ -22,21 +18,22 @@
     
     <div id="main">
         <div id="image">
-            <img id="imager" src="image/poster1.jpg" />
+            <img id="imager" src="image/poster0.jpg">
             <div id="VolumeBar">
-                    <img id="volImg" onclick="Muter()" src="image/vol.png"/>
+                    <img id="volImg" onclick="Muter()" src="image/vol.png">
                 <input type="range" max="100" min="0" value="100" id="volumeChanger" onchange="volume(value)"> 
                 
             </div>
-        </div>
-        
+        <div>
 
     <div id="player">
         <div id="songTitle"></div>
+
+        
         <audio id="audioPlayer" onloadstart="loadCanvas()" onended="next()" ontimeupdate="seekBar()" >You have the most shittiest browser!</audio>
         <div id="buttons">
             <button onclick="pre()"  id="pre"><img src="image/pre.png" /></button>
-            <button onclick="visualizer()" id="play"><img id="imgBtn" src="image/play.png" /></button>
+            <button onclick="play()" id="play"><img id="imgBtn" src="image/play.png" /></button>
             <button onclick="next()" id="next"><img src="image/next.png" /></button>
         </div>
         <div id="timeBar">
@@ -48,6 +45,7 @@
         
     </div>
     <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/script.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+
 </body>
 </HTML>
